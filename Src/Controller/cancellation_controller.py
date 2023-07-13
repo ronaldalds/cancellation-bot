@@ -99,7 +99,7 @@ def handle_start_cancellation(client: Client, message: Message):
                 with concurrent.futures.ThreadPoolExecutor(max_workers=limite_threads) as executor:
                     resultados = executor.map(executar, lista)
                 
-                file_log_cancelamento = datetime.now().strftime("%Y-%m-%d %I:%M %p.log")
+                file_log_cancelamento = datetime.now().strftime("%Y-%m-%d %I:%M:S %p.log")
                 with open(os.path.join(os.path.dirname(__file__), 'logs', file_log_cancelamento), "w") as file_log:
                     for resultado in resultados:
                         file_log.write(resultado)
