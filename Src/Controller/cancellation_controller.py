@@ -124,9 +124,12 @@ def handle_start_cancellation(client: Client, message: Message):
     
 def handle_stop_cancellation(client: Client, message: Message):
     global running
-    running = False
-    message.reply_text("Pedido de parada iniciado...")
-
+    if running:
+        running = False
+        message.reply_text("Pedido de parada iniciado...")
+    else:
+        message.reply_text("Cancelamento parado")
+        
 def handle_status_cancellation(client: Client, message: Message):
     global running
     try:
