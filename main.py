@@ -18,10 +18,12 @@ app = Client(
 
 chat_adm = [
     os.getenv("CHAT_ID_ADM"),
+    os.getenv("CHAT_ID_SISTEMA"),
 ]
 
 chat_group = [
     os.getenv("CHAT_ID_ADM"),
+    os.getenv("CHAT_ID_SISTEMA"),
     os.getenv("CHAT_ID_GROUP_CANCELLATION"),
 ]
 
