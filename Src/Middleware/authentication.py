@@ -2,7 +2,7 @@ from pyrogram import Client
 from pyrogram.types import Message
 
 # Verificação de autorização
-def authorization(ids_autorizados: list[str]):
+def authorization(ids_autorizados):
     def decorador(func):
         def verificacao(client: Client, message: Message):
             if str(message.from_user.id) in ids_autorizados:

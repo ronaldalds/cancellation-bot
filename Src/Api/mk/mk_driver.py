@@ -1,13 +1,10 @@
 import time
 from Src.Api.mk.coin.coin import Coin
 from Src.Api.mk.aside.aside import Aside
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.expected_conditions import (
     frame_to_be_available_and_switch_to_it,
     element_to_be_clickable,
@@ -16,18 +13,17 @@ from selenium.webdriver.support.expected_conditions import (
 
 
 class Mk:
-    def __init__(self, username: str, password: str, url: str, headless: bool = True):
+    def __init__(self, username: str, password: str, url: str):
         self._username: str = username
         self._password: str = password
-        capabilities = DesiredCapabilities.CHROME.copy()
         largura = 1280
         altura = 960
         options = webdriver.ChromeOptions()
+        options.add_argument("--port=4444")
+        options.add_argument('--no-sandbox')
         options.add_argument(f"--window-size={largura},{altura}")
-        options.headless = headless
+        options.add_argument('--headless')
         self._driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()),
-            desired_capabilities=capabilities,
             options=options
             )
         self._wdw = WebDriverWait(self._driver, 300)
