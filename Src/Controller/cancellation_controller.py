@@ -1,6 +1,4 @@
-import openpyxl
 import os
-import time
 import concurrent.futures
 import pandas as pd
 from dotenv import load_dotenv
@@ -8,7 +6,7 @@ from pyrogram.types import Message
 from pyrogram import Client
 from datetime import datetime
 from Src.Service.cancellation_service import cancelamento
-from Src.Util.formatador import formatar_data, formatar_incidencia, formatar_valor_multa, formatar_int
+from Src.Util.formatador import formatar_incidencia, formatar_valor_multa
 
 load_dotenv()
 
@@ -122,8 +120,6 @@ def handle_start_cancellation(client: Client, message: Message):
                 # Criando Pool
                 with concurrent.futures.ThreadPoolExecutor(max_workers=limite_threads) as executor:
                     resultados = executor.map(executar, lista)
-                    # for resultado in resultados:
-                    #     print(f"esse{resultado}")
 
             except Exception as e:
                 print(f"Ocorreu um erro ao processar o arquivo XLSX: {e}")
