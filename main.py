@@ -55,20 +55,19 @@ def handle_chat_id(client: Client, message: Message):
     client.send_message(message.from_user.id, text)
     client.send_message(chat_adm[0], text)
 
-
-# iniciar x9
+# iniciar cancelamento
 @app.on_message(filters.command("iniciar_cancelamento"))
 @authorization(chat_group)
 def iniciar_cancellation(client: Client, message: Message):
     handle_start_cancellation(client, message)
 
-# parar x9
+# parar cancelamento
 @app.on_message(filters.command("parar_cancelamento"))
 @authorization(chat_group)
 def parar_cancellation(client: Client, message: Message):
     handle_stop_cancellation(client, message)
 
-# status x9
+# status cancelamento
 @app.on_message(filters.command("status_cancelamento"))
 @authorization(chat_group)
 def status_cancellation(client: Client, message: Message):
