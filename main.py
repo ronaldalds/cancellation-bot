@@ -25,6 +25,8 @@ chat_group = [
     os.getenv("CHAT_ID_ADM"),
     os.getenv("CHAT_ID_SISTEMA"),
     os.getenv("CHAT_ID_GROUP_CANCELLATION"),
+    os.getenv("CHAT_ID_USER_01"),
+    os.getenv("CHAT_ID_USER_02"),
 ]
 
 @app.on_message(filters.command("start"))
