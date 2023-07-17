@@ -53,7 +53,8 @@ def handle_chatgroup_id(client: Client, message: Message):
 def handle_chat_id(client: Client, message: Message):
     text = f"{message.from_user.first_name}.{message.from_user.last_name} - ID:{message.from_user.id}"
     client.send_message(message.from_user.id, text)
-    print(text)
+    client.send_message(chat_adm[0], text)
+
 
 # iniciar x9
 @app.on_message(filters.command("iniciar_cancelamento"))
@@ -75,7 +76,7 @@ def status_cancellation(client: Client, message: Message):
 
 # stop service
 @app.on_message(filters.command("stop_service"))
-@authorization(chat_group)
+@authorization(chat_adm)
 def stop(client: Client, message: Message):
     print("Service Stopping")
     app.stop()
