@@ -5,7 +5,7 @@ from pyrogram.types import Message
 def authorization(ids_autorizados):
     def decorador(func):
         def verificacao(client: Client, message: Message):
-            if str(message.chat.id) in ids_autorizados:
+            if str(message.from_user.id) in ids_autorizados:
                 return func(client, message)
             else:
                 message.reply_text("Você não está autorizado a usar este bot.")
