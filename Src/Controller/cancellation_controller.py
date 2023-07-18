@@ -115,9 +115,9 @@ def handle_start_cancellation(client: Client, message: Message):
                                 planos_contas
                                 )
                         except Exception as e:
-                            print(f"Error executar na função cancelamento:mk:{mk} cod:{cod_pessoa} contrato:{contrato} {e}")
+                            print(f'Error executar na função cancelamento:mk:{int(arg.get("MK"))} cod:{int(arg.get("Cod Pessoa"))} contrato:{int(arg.get("Contrato"))} {e}')
                     else:
-                        message.reply_text(f"Cancelamento mk:{mk} cod:{cod_pessoa} contrato:{contrato} parado.")
+                        message.reply_text(f'Cancelamento mk:{int(arg.get("MK"))} cod:{int(arg.get("Cod Pessoa"))} contrato:{int(arg.get("Contrato"))} parado.')
                 
                 # Criando Pool
                 with concurrent.futures.ThreadPoolExecutor(max_workers=limite_threads) as executor:
