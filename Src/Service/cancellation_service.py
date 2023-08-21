@@ -201,10 +201,6 @@ def cancelamento(
         instance.iframeMain()
         instance.click('//div[@class="OptionClose"]')
 
-    # click no resultado do click duplo no cadastro do cliente
-    instance.iframeGridRes(financeiro, painel_do_cliente)
-    instance.click(f'//div[text()={contrato}]')
-
     # click cancelar contrato
     try:
         instance.iframePainel(financeiro, painel_do_cliente)
