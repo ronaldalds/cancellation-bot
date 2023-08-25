@@ -3,10 +3,10 @@ import os
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from selenium.webdriver.common.keys import Keys
-from driver.mk.mk_driver import Mk
-from driver.mk.coin.coin import Financeiro
-from driver.mk.aside.aside_financeiro import PainelDoCliente
-from driver.mk.mk_select import (
+from Src.Api.mk.mk_driver import Mk
+from Src.Api.mk.coin.coin import Financeiro
+from Src.Api.mk.aside.aside_financeiro import PainelDoCliente
+from Src.Api.mk.mk_select import (
     TIPO_DA_OS,
     DEFEITO,
     CHECK_BOX_CANCELAR_MK01,
