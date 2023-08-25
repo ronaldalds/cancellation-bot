@@ -3,10 +3,10 @@ import os
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from selenium.webdriver.common.keys import Keys
-from Src.Api.mk.mk_driver import Mk
-from Src.Api.mk.coin.coin import Financeiro
-from Src.Api.mk.aside.aside_financeiro import PainelDoCliente
-from Src.Api.mk.mk_select import (
+from driver.mk.mk_driver import Mk
+from driver.mk.coin.coin import Financeiro
+from driver.mk.aside.aside_financeiro import PainelDoCliente
+from driver.mk.mk_select import (
     TIPO_DA_OS,
     DEFEITO,
     CHECK_BOX_CANCELAR_MK01,
@@ -75,15 +75,20 @@ def cancelamento(
 
     instance.login()
 
-    instance.minimizeChat()
+    # try:
+    #     instance.minimizeChat()
+    # except:
+    #     pass
 
     # fechar tela de complete seu cadastro
     try:
         instance.iframeMain()
+        print("fram main")
         instance.click('//div[@class="OptionClose"]')
+        print("x complete cadastro")
     except:
         pass
-        
+    
     # click na moeda financeiro
     instance.iframeCoin()
     instance.click(financeiro.xpath())
@@ -112,11 +117,11 @@ def cancelamento(
         instance.close()
         print(f'{error};{prefixo_log_cancelamento};click no resultado de pesquisa avançada')
         return f'{error};{prefixo_log_cancelamento};click no resultado de pesquisa avançada'
-    
+
     # escrever código na columa
     try:
-        instance.iframeGridCancelamento(financeiro, painel_do_cliente)
-        instance.write(f'//div[@class="webix_ss_header"]/div[@class="webix_hs_center"]/table/tbody/tr[3]/td[@column="0"]/div/input', contrato)
+        instance.iframeGridRes(financeiro, painel_do_cliente)
+        instance.write(f'//div[@class="webix_ss_header"]//table/tbody/tr[3]/td[1]/div/input', contrato)
     except:
         instance.close()
         print(f'{error};{prefixo_log_cancelamento};escrever código na columa')
@@ -200,6 +205,17 @@ def cancelamento(
         # fechar visualizar/Editar contrato
         instance.iframeMain()
         instance.click('//div[@class="OptionClose"]')
+
+        # click no resultado do click duplo no cadastro do cliente
+    
+    # click no resultado do click duplo no cadastro do cliente
+    try:
+        instance.iframeGridRes(financeiro, painel_do_cliente)
+        instance.click(f'//div[@role="gridcell" and @aria-rowindex="1" and @aria-colindex="1"]')
+    except:
+        instance.close()
+        print(f'{error};{prefixo_log_cancelamento};click no resultado do click duplo no cadastro do cliente')
+        return f'{error};{prefixo_log_cancelamento};click no resultado do click duplo no cadastro do cliente'
 
     # click cancelar contrato
     try:
