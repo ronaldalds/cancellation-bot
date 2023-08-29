@@ -83,9 +83,7 @@ def cancelamento(
     # fechar tela de complete seu cadastro
     try:
         instance.iframeMain()
-        print("fram main")
         instance.click('//div[@class="OptionClose"]')
-        print("x complete cadastro")
     except:
         pass
     
