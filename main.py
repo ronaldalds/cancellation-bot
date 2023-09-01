@@ -7,7 +7,7 @@ from Src.Controller.cancellation_controller import handle_start_cancellation, ha
 
 load_dotenv()
 
-version = "0.0.14"
+version = "0.0.15"
 
 app = Client(
     name=os.getenv("BOT_NAME_TELEGRAM"), 
