@@ -116,19 +116,10 @@ def cancelamento(
         print(f'{error};{prefixo_log_cancelamento};click no resultado de pesquisa avançada')
         return f'{error};{prefixo_log_cancelamento};click no resultado de pesquisa avançada'
 
-    # escrever código na columa
-    try:
-        instance.iframeGridRes(financeiro, painel_do_cliente)
-        instance.write(f'//div[@class="webix_ss_header"]//table/tbody/tr[3]/td[1]/div/input', contrato)
-    except:
-        instance.close()
-        print(f'{error};{prefixo_log_cancelamento};escrever código na columa')
-        return f'{error};{prefixo_log_cancelamento};escrever código na columa'
-    
     # click no resultado do click duplo no cadastro do cliente
     try:
         instance.iframeGridRes(financeiro, painel_do_cliente)
-        instance.click(f'//div[@role="gridcell" and @aria-rowindex="1" and @aria-colindex="1"]')
+        instance.click(f'//div[text()={contrato}]')
     except:
         instance.close()
         print(f'{error};{prefixo_log_cancelamento};click no resultado do click duplo no cadastro do cliente')
@@ -209,7 +200,7 @@ def cancelamento(
     # click no resultado do click duplo no cadastro do cliente
     try:
         instance.iframeGridRes(financeiro, painel_do_cliente)
-        instance.click(f'//div[@role="gridcell" and @aria-rowindex="1" and @aria-colindex="1"]')
+        instance.click(f'//div[text()={contrato}]')
     except:
         instance.close()
         print(f'{error};{prefixo_log_cancelamento};click no resultado do click duplo no cadastro do cliente')
