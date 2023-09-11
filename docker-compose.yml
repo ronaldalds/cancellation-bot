@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  cancelamento:
+    container_name: cancelamento
+    build: .
+    image: cancelamento:0.0.15
+    shm_size: 2g
+    tty: true
+    command: python3 main.py
