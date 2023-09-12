@@ -4,7 +4,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from pyrogram.types import Message
 from pyrogram import Client
-from datetime import datetime, timedelta
+from datetime import datetime
 from Src.Service.cancellation_service import cancelamento
 from Src.Util.formatador import formatar_incidencia, formatar_valor_multa
 
