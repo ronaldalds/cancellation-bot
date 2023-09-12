@@ -63,7 +63,7 @@ def handle_start_cancellation(client: Client, message: Message):
                     with open(os.path.join(diretorio_docs, file_name), "rb") as enviar_docs:
                         client.send_document(os.getenv("CHAT_ID_ADM"),enviar_docs, caption=f"solicitações {file_name}", file_name=f"solicitações {file_name}")
 
-                    
+                    resultados = None
                     message.reply_text(f"Processando arquivo XLSX de cancelamento com {len(lista)} contratos...")
 
                 except pd.errors.ParserError:
@@ -71,7 +71,7 @@ def handle_start_cancellation(client: Client, message: Message):
                     running = False
                     return
                 
-                def executar(arg: dict, message: Message):
+                def executar(arg: dict):
                     if running:
                         try:
                             mk = int(arg.get("MK"))
