@@ -1,6 +1,6 @@
 import time
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 from dotenv import load_dotenv
 from selenium.webdriver.common.keys import Keys
 from Src.Api.mk.mk_driver import Mk
@@ -35,8 +35,7 @@ def cancelamento(
         vencimento_multa,
         planos_contas
         ):
-    ajuste_gmt = timedelta(hours=3)
-    hora = datetime.now() - ajuste_gmt
+    hora = datetime.now()
     print(f'Iniciou cancelamento {hora.strftime("%d/%m/%Y %H:%M")} MK:{mk:02} código:{cod_pessoa} contrato:{contrato} grupo:{grupo_atendimento_os} multa:{valor_multa}')
     error = f"\033[91mERROR\033[0m;CANCELAMENTO;{hora.strftime('%d/%m/%Y %H:%M')}"
     warning = f"\033[93mWARNING\033[0m;CANCELAMENTO;{hora.strftime('%d/%m/%Y %H:%M')}"
