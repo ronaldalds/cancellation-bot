@@ -23,8 +23,7 @@ def handle_start_cancellation(client: Client, message: Message):
 
             # Baixe o arquivo XLSX
             file_path = message.download(in_memory=True)
-            ajuste_gmt = timedelta(hours=3)
-            hora = datetime.now() - ajuste_gmt
+            hora = datetime.now()
             file_name = hora.strftime("%S_%M_%H %Y-%m-%d.log")
             message.reply_text("Preparando arquivo XLSX")
 
