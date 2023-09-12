@@ -275,7 +275,12 @@ def cancelamento(
     instance.click('//button[@title="Clique para finalizar"]')
 
     # alert concluir cancelamento
-    instance.include()
+    try:
+        instance.include()
+    except:
+        instance.close()
+        print(f'{error};{prefixo_log_cancelamento};alert para concluir')
+        return f'{error};{prefixo_log_cancelamento};alert para concluir'
 
     time.sleep(5)
     instance.close()

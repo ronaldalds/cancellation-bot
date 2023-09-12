@@ -26,7 +26,7 @@ chat_group = [
 ]
 
 @app.on_message(filters.command("start"))
-def start(client, message: Message):
+def start(client: Client, message: Message):
     message.reply_text(f"""
 /cancelamento - Setor Cancelamento
 /chat - Informa seu chat_id
@@ -35,7 +35,7 @@ def start(client, message: Message):
 
 @app.on_message(filters.command("cancelamento"))
 @authorization_group(chat_group)
-def financeiro(client, message: Message):
+def financeiro(client: Client, message: Message):
     message.reply_text(f"""
 /iniciar_cancelamento - Iniciar Cancelamento
 /parar_cancelamento - Parar Cancelamento
