@@ -11,6 +11,52 @@ from Src.Util.formatador import formatar_incidencia, formatar_valor_multa
 load_dotenv()
 
 running = False
+def executar(arg: dict, message: Message):
+    if running:
+        try:
+            mk = int(arg.get("MK"))
+            cod_pessoa = int(arg.get("Cod Pessoa"))
+            contrato = int(arg.get("Contrato"))
+            detalhes_cancelamento = arg.get("Detalhes Cancelamento")
+            tipo_da_os = arg.get("Tipo OS")
+            grupo_atendimento_os = arg.get("Grupo Atendimento OS")
+            relato_do_problema = arg.get("Relato do problema")
+            incidencia_multa = formatar_incidencia(arg.get("Incidencia de Multa"))
+            valor_multa = formatar_valor_multa(arg.get("Valor Multa"))
+            vencimento_multa = arg.get("Data Vcto Multa Contratual").strftime("%d%m%Y")
+            planos_contas = arg.get("Planos de Contas")
+
+            return cancelamento(
+                mk = mk,
+                cod_pessoa = cod_pessoa,
+                contrato = contrato,
+                detalhes_cancelamento = detalhes_cancelamento,
+                tipo_da_os = tipo_da_os,
+                grupo_atendimento_os = grupo_atendimento_os,
+                relato_do_problema = relato_do_problema,
+                incidencia_multa = incidencia_multa,
+                valor_multa = valor_multa,
+                vencimento_multa = vencimento_multa,
+                planos_contas = planos_contas
+                )
+            return mk, cod_pessoa, contrato
+            print(
+                mk,
+                cod_pessoa,
+                contrato,
+                detalhes_cancelamento,
+                tipo_da_os,
+                grupo_atendimento_os,
+                relato_do_problema,
+                incidencia_multa,
+                valor_multa,
+                vencimento_multa,
+                planos_contas
+                )
+        except Exception as e:
+            print(f'Error executar na função cancelamento:mk:{int(arg.get("MK"))} cod:{int(arg.get("Cod Pessoa"))} contrato:{int(arg.get("Contrato"))} {e}')
+    else:
+        message.reply_text(f'Cancelamento mk:{int(arg.get("MK"))} cod:{int(arg.get("Cod Pessoa"))} contrato:{int(arg.get("Contrato"))} parado.')
 
 def handle_start_cancellation(client: Client, message: Message):
     global running
@@ -71,7 +117,7 @@ def handle_start_cancellation(client: Client, message: Message):
                     running = False
                     return
                 
-                def executar(arg: dict):
+                def executar(arg: dict, message: Message):
                     if running:
                         try:
                             mk = int(arg.get("MK"))
@@ -98,20 +144,6 @@ def handle_start_cancellation(client: Client, message: Message):
                                 valor_multa = valor_multa,
                                 vencimento_multa = vencimento_multa,
                                 planos_contas = planos_contas
-                                )
-                            return mk, cod_pessoa, contrato
-                            print(
-                                mk,
-                                cod_pessoa,
-                                contrato,
-                                detalhes_cancelamento,
-                                tipo_da_os,
-                                grupo_atendimento_os,
-                                relato_do_problema,
-                                incidencia_multa,
-                                valor_multa,
-                                vencimento_multa,
-                                planos_contas
                                 )
                         except Exception as e:
                             print(f'Error executar na função cancelamento:mk:{int(arg.get("MK"))} cod:{int(arg.get("Cod Pessoa"))} contrato:{int(arg.get("Contrato"))} {e}')
