@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from Src.Middleware.authentication import authorization_adm, authorization_group
+from Src.Middleware.authentication import authorization
 from Src.Controller.cancellation_controller import handle_start_cancellation, handle_stop_cancellation, handle_status_cancellation
 
 load_dotenv()
@@ -16,14 +16,6 @@ app = Client(
     bot_token=os.getenv("BOT_TOKEN_TELEGRAM")
     )
 
-chat_adm = [
-    int(os.getenv("CHAT_ID_ADM")),
-]
-
-chat_group = [
-    int(os.getenv("CHAT_ID_ADM")),
-    int(os.getenv("CHAT_ID_GROUP_CANCELLATION")),
-]
 
 @app.on_message(filters.command("start"))
 def start(client: Client, message: Message):
@@ -34,7 +26,7 @@ def start(client: Client, message: Message):
 """)
 
 @app.on_message(filters.command("cancelamento"))
-@authorization_group(chat_group)
+@authorization()
 def financeiro(client: Client, message: Message):
     message.reply_text(f"""
 /iniciar_cancelamento - Iniciar Cancelamento
@@ -43,7 +35,7 @@ def financeiro(client: Client, message: Message):
 """)
 
 @app.on_message(filters.command("chatgroup"))
-@authorization_adm(chat_adm)
+@authorization()
 def handle_chatgroup_id(client: Client, message: Message):
     client.send_message(message.from_user.id, message)
 
@@ -51,30 +43,30 @@ def handle_chatgroup_id(client: Client, message: Message):
 def handle_chat_id(client: Client, message: Message):
     text = f"{message.from_user.first_name}.{message.from_user.last_name} - ID:{message.from_user.id}"
     client.send_message(message.from_user.id, text)
-    if chat_adm[0] != message.from_user.id:
-        client.send_message(chat_adm[0], text)
+    if int(os.getenv("CHAT_ID_ADM")) != message.from_user.id:
+        client.send_message(int(os.getenv("CHAT_ID_ADM")), text)
 
 # iniciar cancelamento
 @app.on_message(filters.command("iniciar_cancelamento"))
-@authorization_group(chat_group)
+@authorization()
 def iniciar_cancellation(client: Client, message: Message):
     handle_start_cancellation(client, message)
 
 # parar cancelamento
 @app.on_message(filters.command("parar_cancelamento"))
-@authorization_group(chat_group)
+@authorization()
 def parar_cancellation(client: Client, message: Message):
     handle_stop_cancellation(client, message)
 
 # status cancelamento
 @app.on_message(filters.command("status_cancelamento"))
-@authorization_group(chat_group)
+@authorization()
 def status_cancellation(client: Client, message: Message):
     handle_status_cancellation(client, message)
 
 # stop service
 @app.on_message(filters.command("stop_service"))
-@authorization_adm(chat_adm)
+@authorization()
 def stop(client: Client, message: Message):
     print("Service Stopping")
     app.stop()
