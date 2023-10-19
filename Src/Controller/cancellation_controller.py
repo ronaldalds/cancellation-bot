@@ -52,7 +52,7 @@ def handle_start_cancellation(client: Client, message: Message):
                     lista = df.to_dict(orient='records')
 
                     # Verificar se a chave 'MK' contém valor NaN
-                    lista = [dados for dados in lista if not pd.isna(dados.get('MK'))]
+                    lista = [dados for dados in lista if isinstance(dados.get('MK'), int)]
                     # print(lista)
 
                     # Criar aquivo de log com todos os contratos enviados para cancelamento

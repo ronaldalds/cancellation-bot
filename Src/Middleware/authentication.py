@@ -8,11 +8,11 @@ load_dotenv()
 # Verificação de autorização grupo
 def authorization():
     def decorador(func):
-        chat = [
-            int(os.getenv("CHAT_ID_ADM")),
-            int(os.getenv("CHAT_ID_GROUP_CANCELAMENTO")),
-        ]
         def verificacao(client: Client, message: Message):
+            chat = [
+                int(os.getenv("CHAT_ID_ADM")),
+                int(os.getenv("CHAT_ID_GROUP_CANCELAMENTO")),
+            ]
             if message.chat.id in chat:
                 return func(client, message)
             else:
