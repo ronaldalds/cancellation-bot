@@ -16,7 +16,10 @@ def handle_start_cancellation(client: Client, message: Message):
     global running
     if not running:
         # Verifique se a mensagem contém um documento e se o tipo MIME do documento é "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        if message.document and message.document.mime_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+        if message.document and (message.document.mime_type.startswith("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") or
+            message.document.mime_type == "application/vnd.ms-excel" or
+            message.document.mime_type == "application/wps-office.xlsx"
+        ):
             running = True
             # Quantidade de itens na Pool
             limite_threads = 5
@@ -52,8 +55,17 @@ def handle_start_cancellation(client: Client, message: Message):
                     lista = df.to_dict(orient='records')
 
                     # Verificar se a chave 'MK' contém valor NaN
-                    lista = [dados for dados in lista if isinstance(dados.get('MK'), int)]
-                    # print(lista)
+                    lista = [dados for dados in lista if not pd.isna(dados.get('MK'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Cod Pessoa'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Contrato'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Detalhes Cancelamento'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Tipo OS'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Grupo Atendimento OS'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Relato do problema'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Incidencia de Multa'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Valor Multa'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Data Vcto Multa Contratual'))]
+                    lista = [dados for dados in lista if not pd.isna(dados.get('Planos de Contas'))]
 
                     # Criar aquivo de log com todos os contratos enviados para cancelamento
                     with open(os.path.join(diretorio_docs, file_name), "a") as pedido:
@@ -62,7 +74,7 @@ def handle_start_cancellation(client: Client, message: Message):
                     
                     # Envia arquivo de docs com todos as solicitações de cancelamento
                     with open(os.path.join(diretorio_docs, file_name), "rb") as enviar_docs:
-                        client.send_document(os.getenv("CHAT_ID_ADM"),enviar_docs, caption=f"solicitações {file_name}", file_name=f"solicitações {file_name}")
+                        client.send_document(int(os.getenv("CHAT_ID_ADM")),enviar_docs, caption=f"solicitações {file_name}", file_name=f"solicitações {file_name}")
 
                     
                     message.reply_text(f"Processando arquivo XLSX de cancelamento com {len(lista)} contratos...")
@@ -124,7 +136,7 @@ def handle_start_cancellation(client: Client, message: Message):
                 # Envia arquivo de log com todos os resultados de cancelamento
                 with open(os.path.join(diretorio_logs, file_name), "rb") as enviar_logs:
                     message.reply_document(enviar_logs, caption=file_name, file_name=file_name)
-                    client.send_document(os.getenv("CHAT_ID_ADM"), enviar_logs, caption=f"resultado {file_name}", file_name=f"resultado {file_name}")
+                    client.send_document(int(os.getenv("CHAT_ID_ADM")), enviar_logs, caption=f"resultado {file_name}", file_name=f"resultado {file_name}")
 
                 print("Processo Cancelamento concluído.")
                 message.reply_text("O arquivo XLSX de cancelamento foi processado com sucesso!")
