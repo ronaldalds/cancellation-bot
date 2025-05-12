@@ -50,7 +50,7 @@ def cancelamento(
             password=os.getenv('PASSWORD_MK1'),
             url=os.getenv('URL_MK1'),
         )
-        profile = PROFILE_MK01["Boleto Digital - Santander"]
+        profile = PROFILE_MK01["Boleto Digital Cresol"]
         motivo_de_cancelamento  = MOTIVO_DE_CANCELAMENTO_MK01["Inadimplência"]
         valor_grupo_atendimento = GRUPO_DE_ATENDIMENTO_MK01[grupo_atendimento_os]
         div_cancelar = CHECK_BOX_CANCELAR_MK01["Cancelar"]

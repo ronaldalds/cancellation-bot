@@ -18,6 +18,7 @@ PROFILE_TEST = {
 PROFILE_MK01 = {
     "Boleto Digital - Bradesco": 1908,
     "Boleto Digital - Santander": 3534,
+    "Boleto Digital Cresol": 4180,
     "Carne Próprio Varjota": 3476,
     "Depósito Bancário": 625,
     "ONLINE PARTICIPAÇÕES": 3535,
@@ -96,9 +97,11 @@ GRUPO_DE_ATENDIMENTO_MK01 = {
     "ALCÂNTARAS": 2,
     "ANAPURUS": 134,
     "ARARENDÁ": 1,
+    "ARAIOSES": 143,
     "BARROQUINHA": 130,
     "BOA VIAGEM": 116,
     "BRASILEIRA": 139,
+    "CHAPADINHA": 141,
     "CAMOCIM": 120,
     "CANINDÉ": 131,
     "CARIRÉ": 22,
@@ -151,7 +154,7 @@ GRUPO_DE_ATENDIMENTO_MK03 = {
     "TERCEIRIZADA ROLIFILDE": 191,
     "TERCEIRIZADA WRE SERVIÇO": 215,
     "TERRA ALTA": 396,
-    "TUCURUI": 130,
+    "TUCURUÍ": 130,
     "VIGIA": 135,
     "VILA DOS CABANOS": 138
 }
@@ -165,9 +168,9 @@ CHECK_BOX_CANCELAR_TEST = {
 }
 
 CHECK_BOX_CANCELAR_MK01 = {
-    "Cancelar": 17
+    "Cancelar": 19
 }
 
 CHECK_BOX_CANCELAR_MK03 = {
-    "Cancelar": 17
+    "Cancelar": 19
 }
